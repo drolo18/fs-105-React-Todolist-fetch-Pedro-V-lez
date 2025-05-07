@@ -1,26 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
+import { TaskList } from "./TaskList";
 
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
 
-//create your first component
 const Home = () => {
+
+	const [newtask, setNewTask] = useState('')
+	const [taskList, setTaskList] = useState([])
+
+
+	const onChange = (e) => {
+		setNewTask(e.target.value)
+
+	}
+	const onKeyDown = (e) => {
+		if (e.keyCode === 13 && newtask.trim() !== "") {
+			setTaskList([...taskList, newtask])
+			setNewTask("")
+		}
+	}
+	const removeTask = (index) => {
+		const updatedTasks = [
+			...taskList.slice(0, index),
+			...taskList.slice(index + 1),
+		]
+		setTaskList(updatedTasks)
+	}
+
 	return (
 		<div className="text-center">
-            
-
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
+			<h1>Todo List</h1>
+			<br />
+			<div >
+				<input className="text-center border w-50 " placeholder="Escribe tu Tarea" onChange={onChange} onKeyDown={onKeyDown} value={newtask} />
+			</div>
+			<div className="d-flex justify-content-center h-50">
+				{taskList.length === 0 ? (
+					<p>Añadir tus tareas</p> 
+				) : (
+					<TaskList tasks={taskList} removeTask={removeTask} />
+				)}
+			</div>
+			<div className="d-flex justify-content-center ">
+			{taskList.length === 0 ? (
+					<p>No hay tareas, añadir tareas!</p> 
+				) : (<p className="border w-50 text-start last-page" >{taskList.length} Tareas pendientes</p>)}
+			</div>
 		</div>
 	);
 };

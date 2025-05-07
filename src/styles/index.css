@@ -9,3 +9,16 @@
     import 'relative/path/to/stylesheet.scss';
 
 */
+body{
+    background-color: rgb(250, 250, 249);
+    font: oblique bold 120% cursive;
+    text-transform: capitalize;
+}
+input{
+    border: 0;
+    outline: none;
+    background-color:rgb(250, 250, 249);
+} 
+.last-page{
+    border-block-end: double
+}
