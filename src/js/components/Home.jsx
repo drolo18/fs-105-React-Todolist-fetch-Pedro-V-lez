@@ -35,6 +35,17 @@ const Home = () => {
 			console.log(error)
 		}
 	}
+	const deletePedro = async() => {
+		try {
+			const response = await fetch('https://playground.4geeks.com/todo/users/Pedro',
+				{method: 'DELETE',}
+			)
+			createPedro()
+			
+		} catch (error) {
+			
+		}
+	}
 
 	const onChange = (e) => {
 		setNewTask(e.target.value)
@@ -92,7 +103,12 @@ const Home = () => {
 				{taskList.length === 0 ? (
 					<p>No hay tareas, añadir tareas!</p>
 				) : (<p className="border w-50 text-start last-page" >{taskList.length} Tareas pendientes</p>)}
+				
 			</div>
+			<div>
+				<button className="btn btn-secondary" onClick={deletePedro}>Borrar lista</button>
+			</div>
+
 		</div>
 	);
 };
